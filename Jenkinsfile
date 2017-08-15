@@ -29,6 +29,14 @@ pipeline {
                 echo "${env.l_env_var}"
                 echo "archiving artifacts, archiveArtifacts artifacts: '**' "
             }
+            post {
+                always {
+                    echo "Always run junit reports"
+                }
+                success {
+                    echo "Build is done successfully and can be tested now (move to tmp repo)"
+                }
+            }
         }
         stage('Test') {
             steps {
@@ -46,6 +54,14 @@ pipeline {
                 echo "Checked the result of previous stages, "
                 echo "Deploying .. "
             }
+        }
+    }
+    post {
+        always{
+            echo "The buid is completed: post step runs always"
+        }
+        success {
+            echo "build is completed successfully: post success"
         }
     }
 }
