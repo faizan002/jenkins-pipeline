@@ -1,11 +1,9 @@
 #!/usr/bin/env groovy
 
 node {
-    //define environment variables
+   
+    withEnv(ENV_VAR = 'I am environment variable')
 
-    withEnv(ENV_VAR= 'I am environment variable'){
-        echo "setting variable"
-    }
     stage('checkout'){
         checkout scm
     }
