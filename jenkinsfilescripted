@@ -24,6 +24,7 @@ node {
         
     }
 
+/*
     stage('Test-native'){
         node('master') {
             echo "testing on native"
@@ -38,7 +39,34 @@ node {
             echo "publishing the unit tests"
         }
     }
-    
+  */
+
+  stage ('Test') {
+      parallel linux: {
+          node('master'){
+              checkout scm
+            try {
+                unstash 'wiki'
+                echo "testing linux"
+            }
+            finally {
+                echo "publish junit tests"
+            }
+          },
+          windows: {
+          node('testagent'){
+              checkout scm
+            try {
+                unstash 'wiki'
+                echo "testing windows"
+            }
+            finally {
+                echo "publish junit tests"
+            }
+          }
+          
+      }
+  }  
     stage('Deploy'){
         if (currentBuild.result == null || currentBuild.result == 'SUCCESS' ){
             echo "deploying artifacts to repository"
