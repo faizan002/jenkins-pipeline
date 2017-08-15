@@ -11,9 +11,13 @@ pipeline {
     stages {
         
         stage('Build') {
+            environment {
+                l_env_var = "setting local environment variable for build stage only"
+            }
             steps {
                 echo "${env.buildmessage_env}"
                 echo "${buildmessage}"
+                echo "${env.l_env_var}"
                 echo "archiving artifacts, archiveArtifacts artifacts: '**' "
             }
         }
