@@ -1,7 +1,7 @@
 #!/usr/bin/env groovy
 
+def buildmessage = "Building .. "
 pipeline {
-    def buildmessage = "Building .. "
     agent any
 
     stages {
