@@ -29,6 +29,8 @@ pipeline {
                 echo "${buildmessage}"
                 echo "${env.l_env_var}"
                 echo "archiving artifacts, archiveArtifacts artifacts: '**' "
+
+                stash includes: 'README.md', name: 'wiki'
             }
             post {
                 always {
@@ -55,6 +57,7 @@ pipeline {
                 label 'testagent'
             }
             steps {
+                unstash 'wiki'
                 echo "Testing on linux ..  and avoid failingby using inline shell conditional || true "
                 echo "collect junit test results using junit step"
             }
