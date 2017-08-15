@@ -17,8 +17,9 @@ pipeline {
 
 
     stages {
-        agent any
+        
         stage('Build') {
+            agent any
             environment {
                 l_env_var = "setting local environment variable for build stage only"
             }
@@ -60,6 +61,7 @@ pipeline {
         }
 
         stage('Deploy') {
+            agent any
             when {
                 expression{
                     currentBuild.result == null || currentBuild.result == 'SUCCESS'
