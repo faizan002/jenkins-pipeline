@@ -4,12 +4,16 @@ node {
    
     //withEnv(ENV_VAR = 'I am environment variable')
 
+//Setting parameters
+    properties([parameters([string(defaultValue: 'Hello', description: 'How to greet', name: 'Greetings')])])
+
     stage('checkout'){
         checkout scm
     }
     
     stage('Build'){
         echo "compiling build number: ${env.BUILD_ID}"
+        echo "${params.Greetings}"
         echo "${env.ENV_VAR}"
         archiveArtifacts artifacts: '*.md', fingerprint: true
     }
