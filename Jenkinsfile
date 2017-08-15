@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo ${buildmessage}
+                echo "${buildmessage}"
                 echo "archiving artifacts, archiveArtifacts artifacts: '**' "
             }
         }
