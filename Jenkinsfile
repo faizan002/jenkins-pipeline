@@ -1,12 +1,18 @@
 #!/usr/bin/env groovy
 
 def buildmessage = "Building .. ${env.BUILD_ID}"
+
 pipeline {
     agent any
     //setting environment variable, to be availeble through jenkins file
-        environment {
-            buildmessage_env = "setting environment"
-        }
+    environment {
+        buildmessage_env = "setting environment"
+    }
+
+    parameters {
+        string(name: 'Greeting', defaultValue: ´Hello', description:  'greeting param')
+    }
+
 
     stages {
         
@@ -15,6 +21,7 @@ pipeline {
                 l_env_var = "setting local environment variable for build stage only"
             }
             steps {
+                echo "${params.Greeting} from pipeline"
                 echo "${env.buildmessage_env}"
                 echo "${buildmessage}"
                 echo "${env.l_env_var}"
