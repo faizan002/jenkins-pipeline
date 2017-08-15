@@ -7,11 +7,13 @@ pipeline {
         stage('Build') {
             steps {
                 echo "Building .. "
+                echo "archiving artifacts, archiveArtifacts artifacts: '**'
             }
         }
         stage('Test') {
             steps {
-                echo "Testing .. "
+                echo "Testing ..  and avoid failingby using inline shell conditional || true "
+                echo "collect junit test results using junit step"
             }
         }
         stage('Deploy') {
