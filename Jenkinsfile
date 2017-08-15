@@ -1,12 +1,13 @@
 #!/usr/bin/env groovy
 
 pipeline {
+    def buildmessage = "Building .. "
     agent any
 
     stages {
         stage('Build') {
             steps {
-                echo "Building .. "
+                echo ${buildmessage}
                 echo "archiving artifacts, archiveArtifacts artifacts: '**' "
             }
         }
