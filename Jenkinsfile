@@ -17,7 +17,13 @@ pipeline {
             }
         }
         stage('Deploy') {
+            when {
+                expression{
+                    currentBuild.result "" null || currentBuild.result == 'SUCCESS'
+                }
+            }
             steps {
+                echo "Checked the result of previous stages, "
                 echo "Deploying .. "
             }
         }
