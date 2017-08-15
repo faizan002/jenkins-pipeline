@@ -9,8 +9,10 @@ pipeline {
         buildmessage_env = "setting environment"
     }
 
+
+
     parameters {
-        string(name: 'Greeting', defaultValue: ´Hello', description:  'greeting param')
+        string(name: 'Greeting', defaultValue: 'Hello', description: 'How should I greet the world?')
     }
 
 
