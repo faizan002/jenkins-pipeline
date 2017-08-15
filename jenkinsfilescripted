@@ -8,21 +8,37 @@ node {
     properties([parameters([string(defaultValue: 'Hello', description: 'How to greet', name: 'Greetings')])])
 
     stage('checkout'){
-        checkout scm
+        node {
+            checkout scm
+        }
     }
     
     stage('Build'){
-        echo "compiling build number: ${env.BUILD_ID}"
-        echo "${params.Greetings}"
-        echo "${env.ENV_VAR}"
-        archiveArtifacts artifacts: '*.md', fingerprint: true
+        node {
+            echo "compiling build number: ${env.BUILD_ID}"
+            echo "${params.Greetings}"
+            
+            archiveArtifacts artifacts: '*.md', fingerprint: true
+            stash includes: '*.md', name: 'wiki'
+        }
+        
     }
 
-    stage('Test'){
-        echo "testing on native"
-        echo "publishing the unit tests"
+    stage('Test-native'){
+        node('master') {
+            echo "testing on native"
+            echo "publishing the unit tests"
+            unstash 'wiki'
+        }
     }
 
+    stage('Test-windows'){
+        node('testagent') {
+            echo "testing on windows platform"
+            echo "publishing the unit tests"
+        }
+    }
+    
     stage('Deploy'){
         if (currentBuild.result == null || currentBuild.result == 'SUCCESS' ){
             echo "deploying artifacts to repository"
