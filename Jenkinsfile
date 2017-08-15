@@ -3,13 +3,13 @@
 def buildmessage = "Building .. ${env.BUILD_ID}"
 pipeline {
     agent any
-
-    stages {
-        //setting environment variable, to be availeble through jenkins file
+    //setting environment variable, to be availeble through jenkins file
         environment {
             buildmessage_env = "setting environment"
-
         }
+
+    stages {
+        
         stage('Build') {
             steps {
                 echo "${env.buildmessage_env}"
