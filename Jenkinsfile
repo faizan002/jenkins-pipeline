@@ -5,8 +5,14 @@ pipeline {
     agent any
 
     stages {
+        //setting environment variable, to be availeble through jenkins file
+        environment {
+            buildmessage_env = "setting environment"
+
+        }
         stage('Build') {
             steps {
+                echo "${env.buildmessage_env}"
                 echo "${buildmessage}"
                 echo "archiving artifacts, archiveArtifacts artifacts: '**' "
             }
