@@ -1,13 +1,18 @@
 #!/usr/bin/env groovy
 
 node {
+    //define environment variables
+
+    withEnv(ENV_VAR= 'I am environment variable'){
+
+    }
     stage('checkout'){
         checkout scm
     }
     
     stage('Build'){
         echo "compiling build number: ${env.BUILD_ID}"
-        echo "archiving artifacts"
+        echo "${env.ENV_VAR}"
         archiveArtifacts artifacts: '*.md', fingerprint: true
     }
 
