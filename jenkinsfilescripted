@@ -16,4 +16,11 @@ node {
         echo "publishing the unit tests"
     }
 
+    stage('Deploy'){
+        if (currentBuild.result == null || currentBuild.result == 'SUCCESS' ){
+            echo "deploying artifacts to repository"
+        }
+        
+    }
+
 }
