@@ -11,4 +11,9 @@ node {
         archiveArtifacts artifacts: '*.md', fingerprint: true
     }
 
+    stage('Test'){
+        echo "testing on native"
+        echo "publishing the unit tests"
+    }
+
 }
