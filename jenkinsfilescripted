@@ -6,7 +6,7 @@ node {
     }
     
     stage('Build'){
-        echo "compiling"
+        echo "compiling build number: ${env.BUILD_ID}"
         echo "archiving artifacts"
         archiveArtifacts artifacts: '*.md', fingerprint: true
     }
