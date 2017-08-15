@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-def buildmessage = "Building .. "
+def buildmessage = "Building .. ${env.BUILD_ID}"
 pipeline {
     agent any
 
