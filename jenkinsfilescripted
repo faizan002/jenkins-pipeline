@@ -52,19 +52,19 @@ node {
             finally {
                 echo "publish junit tests"
             }
-          },
-          windows: {
-          node('testagent'){
-              checkout scm
-            try {
-                unstash 'wiki'
-                echo "testing windows"
-            }
-            finally {
-                echo "publish junit tests"
-            }
           }
-          
+      },
+          windows: {
+            node('testagent'){
+                  checkout scm
+                try {
+                    unstash 'wiki'
+                    echo "testing windows"
+                }
+                finally {
+                    echo "publish junit tests"
+                }
+            }      
       }
   }  
     stage('Deploy'){
