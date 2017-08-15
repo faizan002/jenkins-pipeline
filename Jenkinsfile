@@ -3,7 +3,7 @@
 def buildmessage = "Building .. ${env.BUILD_ID}"
 
 pipeline {
-    agent any
+    agent none
     //setting environment variable, to be availeble through jenkins file
     environment {
         buildmessage_env = "setting environment"
@@ -17,7 +17,7 @@ pipeline {
 
 
     stages {
-        
+        agent any
         stage('Build') {
             environment {
                 l_env_var = "setting local environment variable for build stage only"
@@ -38,12 +38,27 @@ pipeline {
                 }
             }
         }
-        stage('Test') {
+        //Use of multiple agents in same jenkinsfile
+        stage('Test on windows') {
+            agent {
+                label 'master'
+            }
             steps {
-                echo "Testing ..  and avoid failingby using inline shell conditional || true "
+                echo "Testing  on windows..  and avoid failingby using inline shell conditional || true "
                 echo "collect junit test results using junit step"
             }
         }
+
+        stage('Test on linux') {
+            agent {
+                label 'testagent'
+            }
+            steps {
+                echo "Testing on linux ..  and avoid failingby using inline shell conditional || true "
+                echo "collect junit test results using junit step"
+            }
+        }
+
         stage('Deploy') {
             when {
                 expression{
